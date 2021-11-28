@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Web3Modal from "web3modal";
 import { Web3Provider } from "@ethersproject/providers";
@@ -13,8 +12,8 @@ const network = "mainnet";
 const autoLoad = true;
 
 const useWeb3 = () => {
-    const [provider, setProvider] = useState<Web3Provider>();
-    const [autoLoaded, setAutoLoaded] = useState(false);
+  const [provider, setProvider] = useState<any>();
+  const [autoLoaded, setAutoLoaded] = useState(false);
   // Web3Modal also supports many other wallets.
   // You can see other options at https://github.com/Web3Modal/web3modal
   const web3Modal = useMemo(() => {
@@ -31,19 +30,20 @@ const useWeb3 = () => {
       },
     });
   }, []);
-    // Open wallet selection modal.
-    const loadWeb3Modal = useCallback(async () => {
-        const newProvider = await web3Modal.connect();
-        setProvider(new Web3Provider(newProvider));
-      }, [web3Modal]);
-    
-      const logoutOfWeb3Modal = useCallback(
-        async function () {
-          await web3Modal.clearCachedProvider();
-          window.location.reload();
-        },
-        [web3Modal],
-      );
+
+  // Open wallet selection modal.
+  const loadWeb3Modal = useCallback(async () => {
+    const newProvider = await web3Modal.connect();
+    setProvider(new Web3Provider(newProvider));
+  }, [web3Modal]);
+
+  const logoutOfWeb3Modal = useCallback(
+    async function () {
+      await web3Modal.clearCachedProvider();
+      window.location.reload();
+    },
+    [web3Modal],
+  );
 
   // If autoLoad is enabled and the the wallet had been loaded before, load it automatically now.
   useEffect(() => {
@@ -53,6 +53,6 @@ const useWeb3 = () => {
     }
   }, [autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider]);
   return [provider, loadWeb3Modal, logoutOfWeb3Modal];
-}
+};
 
 export default useWeb3;
