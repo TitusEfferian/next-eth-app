@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import useWeb3 from "../../../hooks/useWeb3";
+import {ethers} from 'ethers';
+
 
 const Button = () => {
   const [account, setAccount] = useState("");
@@ -14,6 +16,8 @@ const Button = () => {
 
         // Load the user's accounts.
         const accounts = await provider.listAccounts();
+        const balance = await provider.getBalance(accounts[0]);
+        console.log(ethers.utils.formatEther(balance))
         setAccount(accounts[0]);
 
         // Resolve the ENS name for the first account.
