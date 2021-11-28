@@ -6,17 +6,13 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 // Enter a valid infura key here to avoid being rate limited
 // You can get a key for free at https://infura.io/register
-const INFURA_ID = "INVALID_INFURA_KEY";
+const infuraId = "INVALID_INFURA_KEY";
 
-const NETWORK = "mainnet";
+const network = "mainnet";
 
-interface CONFIG {
-    autoLoad?: boolean;
-    infuraId?: string;
-    network?: string;
-}
+const autoLoad = true;
 
-const useWeb3 = ({ autoLoad = true, infuraId = INFURA_ID, network = NETWORK }: CONFIG) => {
+const useWeb3 = () => {
     const [provider, setProvider] = useState<Web3Provider>();
     const [autoLoaded, setAutoLoaded] = useState(false);
   // Web3Modal also supports many other wallets.
@@ -34,7 +30,7 @@ const useWeb3 = ({ autoLoad = true, infuraId = INFURA_ID, network = NETWORK }: C
         },
       },
     });
-  }, [infuraId, network]);
+  }, []);
     // Open wallet selection modal.
     const loadWeb3Modal = useCallback(async () => {
         const newProvider = await web3Modal.connect();
@@ -55,7 +51,7 @@ const useWeb3 = ({ autoLoad = true, infuraId = INFURA_ID, network = NETWORK }: C
       loadWeb3Modal();
       setAutoLoaded(true);
     }
-  }, [autoLoad, autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider]);
+  }, [autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider]);
   return [provider, loadWeb3Modal, logoutOfWeb3Modal];
 }
 
