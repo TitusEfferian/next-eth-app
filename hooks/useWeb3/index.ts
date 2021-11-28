@@ -42,16 +42,16 @@ const useWeb3 = () => {
       await web3Modal.clearCachedProvider();
       window.location.reload();
     },
-    [web3Modal],
+    [web3Modal]
   );
 
-  // If autoLoad is enabled and the the wallet had been loaded before, load it automatically now.
-  useEffect(() => {
-    if (autoLoad && !autoLoaded && web3Modal.cachedProvider) {
-      loadWeb3Modal();
-      setAutoLoaded(true);
-    }
-  }, [autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider]);
+  //   // If autoLoad is enabled and the the wallet had been loaded before, load it automatically now.
+  //   useEffect(() => {
+  //     if (autoLoad && !autoLoaded && web3Modal.cachedProvider) {
+  //       loadWeb3Modal();
+  //       setAutoLoaded(true);
+  //     }
+  //   }, [autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider]);
   return [provider, loadWeb3Modal, logoutOfWeb3Modal];
 };
 
